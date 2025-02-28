@@ -1,0 +1,44 @@
+body {
+    padding: 2vw;
+    margin: 0;
+    background-color: #41A592;
+    overflow: hidden;
+}
+.squire-bg {
+    position: absolute;
+        z-index: -1;
+        right: -10%;
+        bottom: -20%;
+    width: 70vw;
+    border-radius: 100% 10% 0% 76% / 91% 0% 10% 60%  ;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    aspect-ratio: 1/2;
+    background-color: #1998D3;
+}
+.box-container {
+    display: flex;  
+    height: 100%;
+    align-items: center;    
+    padding-left: 5px;
+}
+.box {
+    background-color: #F4CE4B;
+    display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: flex-end;
+    width: 450px;
+    padding: 2vw;
+    height: 700px;
+    border-top-right-radius: 15vw;
+    overflow: hidden;
+    border-left: white solid;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-bottom-left-radius: 50px;
+}
+.action-box {
+    background-color: white;
+    border-top-right-radius: 35px;
+    width: 100%;
+    aspect-ratio: 1/1;
+}
