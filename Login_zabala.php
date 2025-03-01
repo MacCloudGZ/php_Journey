@@ -16,20 +16,38 @@
     // }
 ?>
 
-<html>
-    <head>
-        <title>LOGIN</title>
-        <link href="center.css" rel="stylesheet"/>
-    </head>
-    <body>
-        <div class="center_cointainer">
-        <h1>LOGIN</h1>
-            <input type="email" placeholder="EMAIL" id="">
-            <input type="password" placeholder="PASSWORD" id="">
-            <button type="submit">Login</button>
-            <p>
-                <a href="Signup_zabala.php">Register another Account</a>
-            </p>
+<html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link href="style/center.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="squire-bg">&nbsp</div>
+    <div class="box-container">
+        <div class="box">
+            &nbsp
+            <div class="action-box">
+                <div class="center_cointainer">
+                    <h1>LOGIN</h1>
+                    <input type="email" placeholder="EMAIL" id="">
+                    <input type="password" placeholder="PASSWORD" id="">
+                    <button type="submit">LOGIN</button>
+                </div>
+            </div>
+            <div class="log-switch">
+                <div class="toggle-box">
+                    LOGIN
+                </div>
+                <a href="Signup_zabala.php">
+                    <div class="toggle-box notactive">
+                        REGISTER AN ACCOUNT
+                    </div>
+                </a>
+            </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

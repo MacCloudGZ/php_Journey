@@ -9,6 +9,7 @@ body {
         z-index: -1;
         right: -10%;
         bottom: -20%;
+    min-width: auto;
     width: 70vw;
     border-radius: 100% 10% 0% 76% / 91% 0% 10% 60%  ;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -17,15 +18,16 @@ body {
 }
 .box-container {
     display: flex;  
-    height: 100%;
+    height:max-content;
     align-items: center;    
     padding-left: 5px;
 }
 .box {
     background-color: #F4CE4B;
+    position: relative;
     display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content:center;
         align-items: flex-end;
     width: 450px;
     padding: 2vw;
@@ -38,8 +40,49 @@ body {
     /* border-radius:4% 31% 6% 35% / 6% 41% 6% 29%;  */
 }
 .action-box {
+    position: relative;
+        z-index: 1;
     background-color: white;
-    border-top-right-radius: 35px;
-    width: 100%;
+    border-radius: 35px 35px 0 35px;
+    padding: 5%;
+    width: 90%;
     aspect-ratio: 1/1;
+    /* box-shadow: 0px 95px 54px -8px rgba(0,0,0,0.18),
+    inset 125px -52px 79px -91px rgba(0,0,0,0.18); */
+}
+.log-switch {
+    position: relative;
+    z-index:2;
+    width: 100%;
+    padding: 0 2px 0 2px;
+    display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+}
+.toggle-box {
+    position: relative;
+        z-index: 1;
+    background-color: white;
+    padding:  .5vw 2vw 1vw 2vw;
+    transition: .25s;
+    /* box-shadow: 5px -42px 31px -40px rgba(0,0,0,0.54) inset,
+                0px 95px 54px -8px rgba(0,0,0,0.18); */
+    display: flex;
+        justify-content: center;
+        align-items: center;
+}
+.toggle-box.notactive:hover {
+    padding:  .5vw 2vw 1vw 2vw;
+    background-color: #ffffff;
+    transition: 1s;
+}
+.toggle-box.notactive {
+    background-color: #d8cca2c4;
+    padding:  .5vw 2vw .75vw 2vw;
+    transition: .5s;
+    cursor:pointer;
+    color: black;
+}
+a {
+    text-decoration:none;
 }
