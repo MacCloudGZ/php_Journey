@@ -1,4 +1,5 @@
 .center_cointainer{
+    background-color: #4c00ff;
     display: flex;
         flex-direction: column;
         gap: 20px;
