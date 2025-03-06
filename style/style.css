@@ -1,7 +1,9 @@
 body {
     padding: 2vw;
     margin: 0;
-    background-color: #41A592;
+    background: linear-gradient(144deg, rgba(65,165,146,1) 46%, rgba(11,29,26,1) 100%);
+    background-size: 400% 400%;
+    animation: gradient-animation 10s ease-in infinite;
     overflow: hidden;
 }
 .squire-bg {
@@ -50,6 +52,7 @@ body {
     /* box-shadow: 0px 95px 54px -8px rgba(0,0,0,0.18),
     inset 125px -52px 79px -91px rgba(0,0,0,0.18); */
 }
+
 .log-switch {
     position: relative;
     z-index:2;
@@ -84,5 +87,17 @@ body {
     color: black;
 }
 a {
-    text-decoration:none;
+    text-decoration:none;  
+}
+
+@keyframes gradient-animation {
+	0% {
+		background-position: left;
+	}
+	50% {
+		background-position: right;
+	}
+	100% {
+		background-position: left;
+	}
 }

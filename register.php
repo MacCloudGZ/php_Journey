@@ -58,10 +58,19 @@
                     <div class="center_cointainer">
                         <h1>SIGN-UP</h1>
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="text" name="name" placeholder="NAME" required>
-                            <input type="email" name="email" placeholder="EMAIL" required>
-                            <input type="password" name="password" placeholder="PASSWORD" required>
-                            <button type="submit">REGISTER</button>
+                            <div class="input_container">
+                                <span class="input_label">NAME</span>
+                                <input type="text" name="name" class="input_box" required>
+                            </div>
+                            <div class="input_container">
+                                <span class="input_label">EMAIL</span>
+                                <input type="email" name="email" class="input_box" required>
+                            </div>
+                            <div class="input_container">
+                                <span class="input_label">PASSWORD</span>
+                                <input type="password" name="password" class="input_box"required>
+                            </div>
+                            <button type="submit"class="input_button">REGISTER</button>
                         </form>
                     </div>
                 </div>

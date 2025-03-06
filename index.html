@@ -13,13 +13,18 @@
                 &nbsp
                 <div class="action-box">
                     <div class="center_cointainer">
-                        <h1>Template</h1>
-                        <input type="email" placeholder="EMAIL" id="">
-                        <input type="password" placeholder="PASSWORD" id="">
-                        <button type="submit">Login</button>
-                        <p>
-                            <a href="Signup_zabala.php">Register another Account</a>
-                        </p>
+                        <h1>template</h1>
+                        <form method="post">
+                            <div class="input_container">
+                                <span class="input_label">EMAIL</span>
+                                <input type="email" name="email" class="input_box" required>
+                            </div>
+                            <div class="input_container">
+                                <span class="input_label">PASSWORD</span>
+                                <input type="password" name="password" class="input_box"required>
+                            </div>
+                            <button type="submit" class="input_button">LOGIN</button>
+                        </form>
                     </div>
                 </div>
                 <div class="log-switch">

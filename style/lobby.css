@@ -1,0 +1,10 @@
+.index-container {
+    background-color: red;
+    display: flex;
+        justify-content: center;
+}
+.side_box{
+    background-color: #F4CE4B;
+    padding: 10px;
+    width: 100px;
+}
