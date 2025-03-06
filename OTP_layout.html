@@ -1,0 +1,37 @@
+<!DOCTYPE html> <!-- Add doctype for standards mode -->
+<html lang="en"> <!-- Add lang attribute for accessibility -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OTP</title>
+        <link rel="stylesheet" href="style/style.css">
+        <link href="style/center.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="style/otp.css">
+    </head>
+    <body>
+    <div class="squire-bg"> </div>
+    <div class="box-container_otp">
+        <div class="box_otp">
+             
+            <div class="action-box">
+                <div class="center_cointainer_otp">
+                    <h1>OTP Authentication</h1>
+                    <p style="text-align: center;">The 5-digit code will be sent to your email. Please enter the code you received.</p>
+                    <p>Didn't receive the email? <a href="#">Click here</a></p>
+                    <form method="post">
+                        <!-- 5-digit OTP input -->
+                        <div class="otp-container">
+                            <input type="text" id="otp1" name="otp1" maxlength="1" class="otp-input" required>
+                            <input type="text" id="otp2" name="otp2" maxlength="1" class="otp-input" required>
+                            <input type="text" id="otp3" name="otp3" maxlength="1" class="otp-input" required>
+                            <input type="text" id="otp4" name="otp4" maxlength="1" class="otp-input" required>
+                            <input type="text" id="otp5" name="otp5" maxlength="1" class="otp-input" required>
+                        </div>
+                        <button type="submit" class="input_button">CONTINUE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

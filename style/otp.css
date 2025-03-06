@@ -1,0 +1,52 @@
+.box-container_otp {
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+}
+.box_otp {
+    position: relative;
+    display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+    width: 450px;
+    padding: 2vw;
+    border-top-right-radius: 10vw;
+    border-bottom-left-radius: 1vw;
+    overflow: hidden;
+    border-left: white solid;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    border-bottom-left-radius: 50px;
+    /* border-radius:4% 31% 6% 35% / 6% 41% 6% 29%;  */
+}
+.center_cointainer_otp{
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;
+}
+.center_cointainer_otp form {
+    display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+}
+.otp-container {
+    display: flex; /* Or use grid layout */
+    justify-content: center; /* Space evenly */
+    gap: 10px;        /* Space between boxes */
+    margin-bottom: 10px; /* Add some bottom margin */
+}
+
+.otp-input {
+    width: 40px;         /* Adjust size */
+    height: 40px;
+    text-align: center;    /* Center the numbers */
+    font-size: 1.2em;      /* Make it bigger */
+    border: 1px solid #ccc; /* Nice border */
+    border-radius: 5px;    /* Rounded corners */
+}
