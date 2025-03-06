@@ -1,4 +1,5 @@
 <?php
+    session_start();
         // Database connection details (replace with your actual credentials)
     $servername = "localhost";
     $username = "root";
@@ -20,8 +21,8 @@
 
         // **IMPORTANT: Sanitize and validate the input data to prevent SQL injection and other vulnerabilities!**
 
-        //**Password hashing (example using password_hash - requires PHP 5.5+)**
-        //$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        **Password hashing (example using password_hash - requires PHP 5.5+)**
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // **VERY IMPORTANT:  Use prepared statements to prevent SQL injection!**
         $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)"; // Assuming 'name' becomes 'username' in the database
@@ -41,7 +42,7 @@
 
     $conn->close();
 ?>
-<html">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
