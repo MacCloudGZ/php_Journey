@@ -24,6 +24,20 @@ body {
     align-items: center;    
     padding-left: 5px;
 }
+.top_area {
+    display: flex;
+        flex-direction: column;
+            align-items: center;
+        justify-self: center;
+}
+.top_area span {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 50px;
+     font-weight: 1000;
+}
+.top_area p {
+    font-family: 'Courier New', Courier, monospace;
+}
 .box {
     background-color: #F4CE4B;
     position: relative;

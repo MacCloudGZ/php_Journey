@@ -1,11 +1,19 @@
 <?php
 session_start();
 
-// Database connection details (replace with your actual credentials)
+// Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "act1";
+
+// PHPMailer Configuration (Important: Update with your settings)
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -21,31 +29,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $confirm_password = $_POST["confirm_password"]; // Get the confirm password
+    $confirm_password = $_POST["confirm_password"];
 
-    // Check if passwords match
     if ($password != $confirm_password) {
         $error_message = "Passwords do not match.";
     } else {
-        // **IMPORTANT: Sanitize and validate the input data!**
+        // Generate OTP
+        $otp = rand(10000, 99999);
 
-        // Password hashing (example using password_hash - requires PHP 5.5+)
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Store OTP in session
+        $_SESSION["otp"] = $otp;
+        $_SESSION["name"] = $name;
+        $_SESSION["email"] = $email;
+        $_SESSION["password"] = $password; // Store password for later hashing
 
-        // VERY IMPORTANT: Use prepared statements!
-        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $name, $email, $hashed_password); // Use hashed password
+        // Send OTP via Email (PHPMailer)
+        $mail = new PHPMailer(true);
 
-        if ($stmt->execute()) {
-            echo "New record created successfully";
-            header("Location: login.php"); // Redirect to login page after registration
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'zkurtgabrielle@gmail.com';                     //SMTP username
+            $mail->Password   = 'sxkxsgjkaluauvul';                               //SMTP password
+            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+            //Recipients
+            $mail->setFrom('zkurtgabrielle@gmail.com', 'Kurt Zabala');
+            $mail->addAddress($email, $name);     //Add a recipient
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Your OTP Code';
+            $mail->Body    = 'Your OTP code is: ' . $otp;
+
+            $mail->send();
+            echo 'Message has been sent';
+
+            header("Location: otp.php"); // Redirect to OTP page
             exit();
-        } else {
-            $error_message = "Error: " . $stmt->error;
-        }
 
-        $stmt->close();
+        } catch (Exception $e) {
+            $error_message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
     }
 }
 
@@ -66,7 +95,14 @@ $conn->close();
              
             <div class="action-box">
                 <div class="center_cointainer">
-                    <h1>SIGN-UP</h1>
+                    <div class="top_area">
+                        <span>SIGN-UP</span>
+                        <?php if ($error_message != "") {
+                                    echo "<p style='color:red;'>$error_message</p>";
+                        }else {
+                            echo "<p stlye = 'color:black;'>Enter the following</p>";
+                        } ?>
+                    </div>
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <div class="input_container">
                             <span class="input_label">NAME</span>
@@ -84,9 +120,6 @@ $conn->close();
                             <span class="input_label">CONFIRM PASSWORD</span>
                             <input type="password" name="confirm_password" class="input_box" required>
                         </div>
-                         <?php if ($error_message != "") {
-                                    echo "<p style='color:red;'>$error_message</p>";
-                                } ?>
                         <button type="submit" class="input_button">REGISTER</button>
                     </form>
                 </div>
