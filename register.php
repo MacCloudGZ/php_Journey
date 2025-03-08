@@ -43,38 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["email"] = $email;
         $_SESSION["password"] = $password; // Store password for later hashing
 
-        // Send OTP via Email (PHPMailer)
-        $mail = new PHPMailer(true);
-
-        try {
-            //Server settings
-            $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'zkurtgabrielle@gmail.com';                     //SMTP username
-            $mail->Password   = 'sxkxsgjkaluauvul';                               //SMTP password
-            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-            
-            //Recipients
-            $mail->setFrom('zkurtgabrielle@gmail.com', 'Kurt Zabala');
-            $mail->addAddress($email, $name);     //Add a recipient
-
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Your OTP Code';
-            $mail->Body    = 'Your OTP code is: ' . $otp;
-
-            $mail->send();
-            echo 'Message has been sent';
-
-            header("Location: otp.php"); // Redirect to OTP page
-            exit();
-
-        } catch (Exception $e) {
-            $error_message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
+        
     }
 }
 

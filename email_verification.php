@@ -63,6 +63,7 @@ $conn->close();
     <link rel="stylesheet" href="style/style.css">
     <link href="style/center.css" rel="stylesheet"/>
     <link rel="stylesheet" href="style/otp.css">
+    <link rel="stylesheet" href="style/loading.css">
 </head>
 <body>
 <div class="squire-bg"> </div>
