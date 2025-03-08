@@ -7,7 +7,7 @@ $username = "root";
 $password = "";
 $dbname = "act1";
 
-// PHPMailer Configuration (Important: Update with your settings)
+// PHPMailer Configuration
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -23,7 +23,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$error_message = ""; // Initialize error message
+$error_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
@@ -34,22 +34,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password != $confirm_password) {
         $error_message = "Passwords do not match.";
     } else {
-        // Generate OTP
-        $otp = rand(10000, 99999);
+        // Generate a unique verification token
+        $verification_token = bin2hex(random_bytes(32)); // Generate a random 64-character hexadecimal string
 
-        // Store OTP in session
-        $_SESSION["otp"] = $otp;
-        $_SESSION["name"] = $name;
-        $_SESSION["email"] = $email;
-        $_SESSION["password"] = $password; // Store password for later hashing
+        // Hash the password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        
+        // Prepare and execute the SQL statement
+        $sql = "INSERT INTO users (username, email, password, verification_token) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $name, $email, $hashed_password, $verification_token);
+
+        if ($stmt->execute()) {
+            // Registration successful, send email verification
+
+            // PHPMailer
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'zkurtgabrielle@gmail.com';                     //SMTP username
+                $mail->Password   = 'sxkxsgjkaluauvul';                               //SMTP password
+                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                
+                //Recipients
+                $mail->setFrom('zkurtgabrielle@gmail.com', 'Kurt Zabala');
+                $mail->addAddress($email, $name);     //Add a recipient
+
+                // Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Verify Your Email';
+                $verification_link = "http://localhost/php_Journey/verify.php?token=" . $verification_token;  // Use Correctly
+                $mail->Body    = "Please click on the following link to verify your email: <a href='" . $verification_link . "'>" . $verification_link . "</a>";
+
+                $mail->send();
+                 // Set session variables to show a verification prompt to the users in the page
+                $_SESSION["success_message"] = "Registration successful! Please verify your email address to continue.";
+                 //after they have put the info set to email and redirect
+                header("Location: email_verification.php");
+                exit();
+
+            } catch (Exception $e) {
+                $error_message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+        } else {
+            $error_message = "Error registering account: " . $stmt->error;
+        }
+
+        $stmt->close();
     }
 }
 
 $conn->close();
 ?>
-<html>
+<html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,7 +110,7 @@ $conn->close();
                     <div class="top_area">
                         <span>SIGN-UP</span>
                         <?php if ($error_message != "") {
-                                    echo "<p style='color:red;'>$error_message</p>";
+                            echo "<p style='color:red;'>$error_message</p>";
                         }else {
                             echo "<p stlye = 'color:black;'>Enter the following</p>";
                         } ?>
