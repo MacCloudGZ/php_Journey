@@ -16,7 +16,7 @@ require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
 // reCAPTCHA Secret Key (KEEP THIS SECRET!)
-$recaptchaSecretKey = "6LfDoPAqAAAAAIdxXYBAieFnsruSM4LXm24fj0WM"; // **REPLACE WITH YOUR SECRET KEY**
+$recaptchaSecretKey = "6LfDoPAqAAAAAIdxXYBAieFnsruSM4LXm24fj0WM"; // **SECRET KEY**
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
