@@ -1,0 +1,3 @@
+Recaptcha
+    sitekey: 6LfDoPAqAAAAABRFBJ7ZBCIsHx_XFNc3S9TS8gPL;
+    secretkey: 6LfDoPAqAAAAAIdxXYBAieFnsruSM4LXm24fj0WM;
