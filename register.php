@@ -15,6 +15,9 @@ require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
+// reCAPTCHA Secret Key (KEEP THIS SECRET!)
+$recaptchaSecretKey = "6LfDoPAqAAAAAIdxXYBAieFnsruSM4LXm24fj0WM"; // **SECRET KEY**
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -26,6 +29,31 @@ if ($conn->connect_error) {
 $error_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // reCAPTCHA Response
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
+
+    // Verify reCAPTCHA (Server-Side)
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $data = [
+        'secret' => $recaptchaSecretKey,
+        'response' => $recaptchaResponse,
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    ];
+
+    $options = [
+        'http' => [
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
+            'content' => http_build_query($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $verify = file_get_contents($url, false, $context);
+    $captcha_success = json_decode($verify);
+
+    if ($captcha_success->success == true) {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -87,6 +115,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $stmt->close();
+        }
+    } else {
+        // reCAPTCHA verification failed
+        $error_message = "reCAPTCHA verification failed. Please try again.";
     }
 }
 
@@ -99,6 +131,7 @@ $conn->close();
     <title>SignUp</title>
     <link rel="stylesheet" href="style/style.css">
     <link href="style/center.css" rel="stylesheet"/>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="squire-bg"> </div>
@@ -132,6 +165,8 @@ $conn->close();
                             <span class="input_label">CONFIRM PASSWORD</span>
                             <input type="password" name="confirm_password" class="input_box" required>
                         </div>
+                        <div class="g-recaptcha" data-sitekey="6LfDoPAqAAAAABRFBJ7ZBCIsHx_XFNc3S9TS8gPL"></div>
+                        <br>
                         <button type="submit" class="input_button">REGISTER</button>
                     </form>
                 </div>
