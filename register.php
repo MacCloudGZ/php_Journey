@@ -53,69 +53,93 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $verify = file_get_contents($url, false, $context);
     $captcha_success = json_decode($verify);
 
-    if ($captcha_success->success == true) {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $confirm_password = $_POST["confirm_password"];
-
-    if ($password != $confirm_password) {
-        $error_message = "Passwords do not match.";
-    } else {
-        // Generate a unique verification token
-        $verification_token = bin2hex(random_bytes(32)); // Generate a random 64-character hexadecimal string
-
-        // Hash the password
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        // Prepare and execute the SQL statement
-        $sql = "INSERT INTO users (username, email, password, verification_token) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $name, $email, $hashed_password, $verification_token);
-
-        if ($stmt->execute()) {
-            // Registration successful, send email verification
-
-            // PHPMailer
-            $mail = new PHPMailer(true);
-
-            try {
-                //Server settings
-                $mail->SMTPDebug = 0;                      //Enable verbose debug output
-                $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = 'zkurtgabrielle@gmail.com';                     //SMTP username
-                $mail->Password   = 'sxkxsgjkaluauvul';                               //SMTP password
-                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                
-                //Recipients
-                $mail->setFrom('zkurtgabrielle@gmail.com', 'Kurt Zabala');
-                $mail->addAddress($email, $name);     //Add a recipient
-
-                // Content
-                $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'Verify Your Email';
-                $verification_link = "http://localhost/php_Journey/verify.php?token=" . $verification_token;  // Use Correctly
-                $mail->Body    = "Please click on the following link to verify your email: <a href='" . $verification_link . "'>" . $verification_link . "</a>";
-
-                $mail->send();
-                 // Set session variables to show a verification prompt to the users in the page
-                $_SESSION["success_message"] = "Registration successful! Please verify your email address to continue.";
-                 //after they have put the info set to email and redirect
-                header("Location: email_verification.php");
-                exit();
-
-            } catch (Exception $e) {
-                $error_message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
+    if ($captcha_success->success == true) {  
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $dateToday = date('Y-m-d');
+        
+        // Check how many times this IP has registered today
+        $check_sql = "SELECT COUNT(*) FROM registrations WHERE ip_address = ? AND date = ?";
+        $check_stmt = $conn->prepare($check_sql);
+        $check_stmt->bind_param("ss", $ip_address, $dateToday);
+        $check_stmt->execute();
+        $check_stmt->bind_result($ip_count);
+        $check_stmt->fetch();
+        $check_stmt->close();
+        
+        if ($ip_count >= 3) {
+            $error_message = "You have reached the maximum number of registration attempts for today.";
         } else {
-            $error_message = "Error registering account: " . $stmt->error;
-        }
+            // Record the registration attempt
+            $log_sql = "INSERT INTO registrations (ip_address, date) VALUES (?, ?)";
+            $log_stmt = $conn->prepare($log_sql);
+            $log_stmt->bind_param("ss", $ip_address, $dateToday);
+            $log_stmt->execute();
+            $log_stmt->close();
+        
+            $name = $_POST["name"];
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $confirm_password = $_POST["confirm_password"];
 
-        $stmt->close();
+            if ($password != $confirm_password) {
+                $error_message = "Passwords do not match.";
+            } else {
+                // Generate a unique verification token
+                $verification_token = bin2hex(random_bytes(32)); // Generate a random 64-character hexadecimal string
+
+                // Hash the password
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+                // Prepare and execute the SQL statement
+                $sql = "INSERT INTO users (username, email, password, verification_token) VALUES (?, ?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ssss", $name, $email, $hashed_password, $verification_token);
+
+                if ($stmt->execute()) {
+                    // Registration successful, send email verification
+
+                    // PHPMailer
+                    $mail = new PHPMailer(true);
+
+                    try {
+                        //Server settings
+                        $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                        $mail->isSMTP();                                            //Send using SMTP
+                        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                        $mail->Username   = 'zkurtgabrielle@gmail.com';                     //SMTP username
+                        $mail->Password   = 'sxkxsgjkaluauvul';                               //SMTP password
+                        $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                        
+                        //Recipients
+                        $mail->setFrom('zkurtgabrielle@gmail.com', 'Kurt Zabala');
+                        $mail->addAddress($email, $name);     //Add a recipient
+
+                        // Content
+                        $mail->isHTML(true);                                  //Set email format to HTML
+                        $mail->Subject = 'Verify Your Email';
+                        $verification_link = "http://localhost/php_Journey/verify.php?token=" . $verification_token;  // Use Correctly
+                        $mail->Body    = "Please click on the following link to verify your email: <a href='" . $verification_link . "'>" . $verification_link . "</a>";
+
+                        $mail->send();
+                        // Set session variables to show a verification prompt to the users in the page
+                        $_SESSION["success_message"] = "Registration successful! Please verify your email address to continue.";
+                        //after they have put the info set to email and redirect
+                        header("Location: email_verification.php");
+                        exit();
+
+                    } catch (Exception $e) {
+                        $error_message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    }
+                } else {
+                    $error_message = "Error registering account: " . $stmt->error;
+                }
+
+                $stmt->close();
+            }
         }
+      
     } else {
         // reCAPTCHA verification failed
         $error_message = "reCAPTCHA verification failed. Please try again.";
@@ -184,4 +208,4 @@ $conn->close();
         </div>
     </div>
 </body>
-</html>
+</html> 
