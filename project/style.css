@@ -1,0 +1,137 @@
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Inspiration&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inspiration&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.main-container{
+    display: flex;
+    height: 100vh;
+    background-color: #173142;
+}
+    .left-container{
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        width: 20vh;
+        height: 100%;
+        background-color: #236476;
+        box-shadow:  #4a6c2f 0px 5px 15px;
+    }
+        .head-container{
+            transform: translateX(15vh);
+            left: 0;
+            user-select: none;
+            font-family: 'Inter';
+            display: flex;
+            padding: 10px;
+            color: #cfe0da;
+            text-shadow: 8px 0px 1px rgba(23,49,66,0.46);
+        }
+            .head-container i{
+                font-size: 15vh;
+            }
+            .logo{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+                .logo-title{
+                    font-size: 10vh;
+                    font-family: 'Inspiration';
+                    text-decoration: underline;
+                }
+                .logo-subtitle{
+                    display: flex;
+                    justify-content: center;
+                    font-size: 3vh;
+                    font-weight: 100;
+                }
+        .tab-container{
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+                justify-content: center;
+            height: auto;
+        }
+            .tabs{
+                width: 100%;
+                position: relative;
+                display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-around;
+            }
+                .tab{
+                    display: flex;
+                        justify-content: center;
+                    width: 95%;
+                    transition: .5s;
+                    user-select: none;
+                    position: relative;
+                    width: 100%;
+                    color: #cfe0da;
+                }
+                    .tab i{
+                        font-size: 5vh;
+                    }
+                    .tab:hover .tabs-labels{
+                        display: block;
+                    }
+                    .tab:hover i{
+                        transition: .5s;
+                        transform: translateX(1vh);
+                    }
+                .tabs-labels{
+                    display: none;
+                    position: absolute;
+                    left: 100%;
+                    width: auto;
+                    font-size: 5vh;
+                    background: radial-gradient(circle,rgba(0, 0, 0, 1) 5%, rgba(255, 255, 255, 0) 100%);
+                    background-size: 1000%;
+                    background-position: right;
+                    background-repeat: no-repeat;
+                    animation: swing-in-left-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+                    border-radius:49% 33% 10% 0% / 0% 25% 33% 25% ;
+                }
+                    @keyframes swing-in-left-fwd {
+                        0% {
+                        transform: rotateY(100deg);
+                        transform-origin: left;
+                        opacity: 0;
+                        }
+                        100% {
+                        transform: rotateY(0);
+                        transform-origin: left;
+                        opacity: 1;
+                        }
+                    }
+                  
+    .right-container{
+        position: relative;
+        z-index: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+        .box-container{
+            background-color: #7dad3f;
+            width: 100%;
+            height: 100%;
+            padding-top: 2vh;
+        }
+.box {
+    display: none;
+}
+.box.active {
+    display: block;
+}
