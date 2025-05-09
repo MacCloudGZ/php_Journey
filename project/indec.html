@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HackNo Internet Tips</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Favicon - linking directly to SVG like this is possible but less common than .ico or .png -->
     <link rel="icon" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/svgs/solid/shield-halved.svg" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    <!-- Ensure this path is correct: <script src="index.js" defer></script> -->
     <script src="index.js" defer></script>
 </head>
 <body>
     <div class="main-container">
         <div class="left-container">
             <div class="head-container">
+                <!-- Font Awesome icon used correctly -->
                 <i class="fa-solid fa-shield-halved"></i>
                 <div class="logo">
                     <div class="logo-title">
@@ -25,8 +28,9 @@
             </div>
             <div class="tab-container">
                 <div class="tabs">
-                    <div class="tab" id="tab-home">
-                        <i class="fa-solid fa-house"></i>        
+                    <!-- Initial 'active' class here will be overridden by JS on load -->
+                    <div class="tab active" id="tab-home">
+                        <i class="fa-solid fa-house"></i>
                         <div class="tabs-labels">Home</div>
                     </div>
                     <div class="tab" id="tab-passwords">
@@ -43,20 +47,248 @@
                     </div>
                     <div class="tab" id="tab-contact">
                         <i class="fa-solid fa-comment"></i>
-                        <div class="tabs-labels">Contact</div>
+                        <div class="tabs-labels">Chat</div>
                     </div>
-                </div>            
+                </div>
             </div>
         </div>
         <div class="right-container">
             <div class="box-container">
-                <div class="box" id="box-home">Home Content</div>
-                <div class="box" id="box-passwords">Password Security Content</div>
-                <div class="box" id="box-connectivity">Internet Interaction Content</div>
-                <div class="box" id="box-cloud">Cloud Security Content</div>
-                <div class="box" id="box-contact">Contact Content</div>
+                <!-- Initial 'active' class here will be overridden by JS on load -->
+                <div class="box active" id="box-home">
+                    <div class="content-container">
+                        <!-- Hero Section -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                Stay Safe Online: Simple Cybersecurity Tips for Everyday Use
+                            </div>
+                            <div class="content-subtitle">
+                                Protect your data, privacy, and digital life with these easy-to-follow guidelines.
+                            </div>
+                        </div>
+
+                        <!-- Password Security -->
+                        <div class="content-box target" onclick="gotoTab('box-passwords');">
+                            <div class="content-title">
+                                🔐 Password Security
+                            </div>
+                            <div class="content-subtitle">
+                                Use strong, unique passwords and enable multi-factor authentication to keep your accounts secure.
+                            </div>
+                        </div>
+
+                        <!-- Internet Interaction -->
+                        <div class="content-box target" onclick="gotoTab('box-connectivity');">
+                            <div class="content-title">
+                                🌐 Internet Interaction
+                            </div>
+                            <div class="content-subtitle">
+                                Be cautious of suspicious links, avoid public Wi-Fi for sensitive tasks, and verify URLs before clicking.
+                            </div>
+                        </div>
+
+                        <!-- Cloud Security -->
+                        <div class="content-box target" onclick="gotoTab('box-cloud');">
+                            <div class="content-title">
+                                ☁️ Cloud Security
+                            </div>
+                            <div class="content-subtitle">
+                                Choose trusted cloud services, enable encryption, and manage file access permissions carefully.
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="content-footer">
+                            © 2023 HackNo. All rights reserved.
+                        </div>
+                    </div>
+                    <div class="background-mascot">
+                        <img src="image/image3.png" alt="IMAGE">
+                    </div>
+                </div>
+                <div class="box" id="box-passwords">
+                        <div class="content-container">
+                            <!-- Introduction -->
+                            <div class="content-box">
+                                <div class="content-title">
+                                    Stay Safe Online: Password Security Matters
+                                </div>
+                                <div class="content-subtitle">
+                                    Passwords are the first line of defense for your digital life. Learn how to create, manage, and protect your passwords effectively.
+                                </div>
+                            </div>
+
+                            <!-- Password Creation Tips -->
+                            <div class="content-box">
+                                <div class="content-title">
+                                    🔑 Create Strong Passwords
+                                </div>
+                                <div class="content-subtitle">
+                                    Use at least 12 characters with a mix of uppercase, lowercase, numbers, and symbols. Avoid using names, birthdays, or common words.
+                                </div>
+                            </div>
+
+                            <!-- Password Management -->
+                            <div class="content-box">
+                                <div class="content-title">
+                                    🧠 Manage Passwords Wisely
+                                </div>
+                                <div class="content-subtitle">
+                                    Never reuse passwords across sites. Use a trusted password manager to generate and store your passwords securely.
+                                </div>
+                            </div>
+
+                            <!-- Extra Protection Tips -->
+                            <div class="content-box">
+                                <div class="content-title">
+                                    🛡️ Enhance Password Security
+                                </div>
+                                <div class="content-subtitle">
+                                    Enable multi-factor authentication (MFA), change compromised passwords immediately, and avoid saving passwords in browsers.
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="content-footer">
+                                © 2023 HackNo. All rights reserved.
+                            </div>
+                        </div>
+
+                    <div class="background-mascot">
+                        <img src="image/image2.png" alt="IMAGE">
+                    </div>
+                </div>
+                <div class="box"    id="box-connectivity">
+                    <div class="content-container">
+                        <!-- Introduction -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                Stay Safe Online: Smart Internet Interaction Tips
+                            </div>
+                            <div class="content-subtitle">
+                                The internet is full of opportunities—and risks. Learn how to browse, communicate, and interact safely in the digital world.
+                            </div>
+                        </div>
+
+                        <!-- Think Before You Click -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                ⚠️ Think Before You Click
+                            </div>
+                            <div class="content-subtitle">
+                                Avoid clicking suspicious links, pop-ups, or email attachments from unknown sources. Always verify before you interact.
+                            </div>
+                        </div>
+
+                        <!-- Safe Browsing Practices -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                🌐 Practice Safe Browsing
+                            </div>
+                            <div class="content-subtitle">
+                                Use secure websites (look for "https://"), avoid illegal downloads, and steer clear of shady websites to protect your device and data.
+                            </div>
+                        </div>
+
+                        <!-- Public Wi-Fi Awareness -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                📶 Be Cautious with Public Wi-Fi
+                            </div>
+                            <div class="content-subtitle">
+                                Avoid accessing sensitive accounts on public Wi-Fi. If needed, use a VPN to encrypt your connection and keep your data private.
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="content-footer">
+                            © 2023 HackNo. All rights reserved.
+                        </div>
+                    </div>
+                    <div class="background-mascot">
+                        <img src="image/image1.png" alt="IMAGE">
+                    </div>
+                </div>
+                <div class="box" id="box-cloud">
+                    <div class="content-container">
+                        <!-- Introduction -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                Stay Safe Online: Cloud Security Essentials
+                            </div>
+                            <div class="content-subtitle">
+                                Cloud storage makes life easier—but it also requires smart security practices. Learn how to protect your data in the cloud.
+                            </div>
+                        </div>
+
+                        <!-- Choose Trusted Providers -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                ☁️ Use Trusted Cloud Services
+                            </div>
+                            <div class="content-subtitle">
+                                Stick to reputable providers like Google Drive, OneDrive, or Dropbox. Check their privacy policies and security features before uploading files.
+                            </div>
+                        </div>
+                        <!-- Enable Encryption -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                🔒 Enable Encryption
+                            </div>
+                            <div class="content-subtitle">
+                                Use services that offer encryption for your data both in transit and at rest. For extra protection, encrypt files before uploading.
+                            </div>
+                        </div>
+
+                        <!-- Manage Access Carefully -->
+                        <div class="content-box">
+                            <div class="content-title">
+                                👥 Control Who Has Access
+                            </div>
+                            <div class="content-subtitle">
+                                Regularly review shared links and permissions. Remove access when no longer needed to prevent unauthorized file viewing or editing.
+                            </div>
+                        </div>
+                        <!-- Footer -->
+                        <div class="content-footer">
+                            © 2023 HackNo. All rights reserved.
+                        </div>
+                    </div>
+                    <div class="background-mascot">
+                        <img src="image/image4.png" alt="IMAGE">
+                    </div>
+                </div>
+                <div class="box" id="box-contact">
+                    <div class="feedback-container">
+                        <div class="live-feedback">
+                            <iframe src="chat.html" frameborder="0" width="100%" height="100%"></iframe>
+                        </div>
+                        <div class="c">
+                            <div class="c-box">
+                                <div class="c-title">
+                                    Share your thoughts and interact with fellow visitors using the Global chat
+                                </div>
+                            </div>
+                        </div>
+                        <div class="a-f-container">
+                            <div class="chat-input-container">
+                                <div class="chat-box">
+                                    <label for="usernameInput" class="visually-hidden">Username:</label>
+                                    <input type="text"name="username"id="usernameInput"placeholder="Your Username"required>
+                                    <label for="messageInput" class="visually-hidden">Message:</label>
+                                    <textarea name="message" id="messageInput" placeholder="Enter your chat here" rows="3"required></textarea>
+                                    <div>recpathca</div><!--for recaptcha-->
+                                    <button type="submit">SUBMIT</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="background-mascot">
+                        <img src="image/image5.png" alt="IMAGE">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 </html>
