@@ -1,12 +1,7 @@
 <?php
 session_start();
 
-// Database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "act1";
-
+include 'database.php'; // Include your database connection file
 // PHPMailer Configuration
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
