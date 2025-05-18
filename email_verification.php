@@ -40,7 +40,7 @@ $success_message = $_SESSION["success_message"];
                             <span class="loader"></span>
                         </div>
                     </div>
-                    <a href="login.php"><button type="submit" class="input_button">CONTINUE</button></a>
+                    <a href="index.php"><button type="submit" class="input_button">CONTINUE</button></a>
                 </div>
             </div>
         </div>

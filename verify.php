@@ -24,7 +24,7 @@ if (isset($_GET['token'])) {
         $_SESSION["verification_success"] = "Your email has been verified. Please log in."; // set session message
 
         // Redirect to login page
-        header("Location: login.php");
+        header("Location: index.php");
         exit();
     } else {
        echo $stmt->error; // If the is an issue, this should pop up

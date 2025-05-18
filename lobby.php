@@ -4,7 +4,7 @@ session_start();
 // Check if the user is logged in (has a session)
 if (!isset($_SESSION["username"])) {
     // If not logged in, redirect to login page
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["logout"])) {
     session_destroy();
 
     // Redirect to login page
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 

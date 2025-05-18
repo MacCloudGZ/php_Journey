@@ -10,9 +10,6 @@ require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
-// reCAPTCHA Secret Key (KEEP THIS SECRET!)
-$recaptchaSecretKey = "6LfDoPAqAAAAAIdxXYBAieFnsruSM4LXm24fj0WM"; // **SECRET KEY**
-
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -31,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verify reCAPTCHA (Server-Side)
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     $data = [
-        'secret' => $recaptchaSecretKey,
+        'secret' => $recaptchaSecretKey, // Now from database.php
         'response' => $recaptchaResponse,
         'remoteip' => $_SERVER['REMOTE_ADDR']
     ];
@@ -184,14 +181,14 @@ $conn->close();
                             <span class="input_label">CONFIRM PASSWORD</span>
                             <input type="password" name="confirm_password" class="input_box" required>
                         </div>
-                        <div class="g-recaptcha" data-sitekey="6LfDoPAqAAAAABRFBJ7ZBCIsHx_XFNc3S9TS8gPL"></div>
+                        <div class="g-recaptcha" data-sitekey="<?php echo $recaptchaSiteKey; ?>"></div>
                         <br>
                         <button type="submit" class="input_button">REGISTER</button>
                     </form>
                 </div>
             </div>
             <div class="log-switch">
-                <a href="login.php">
+                <a href="index.php">
                     <div class="toggle-box notactive">
                         LOGIN
                     </div>
@@ -203,4 +200,4 @@ $conn->close();
         </div>
     </div>
 </body>
-</html> 
+</html>
